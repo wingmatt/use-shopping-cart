@@ -1,40 +1,34 @@
-import { NextPage } from 'next'
-import Link from 'next/link'
+import { NextPage, GetStaticProps } from 'next'
 import Layout from '../components/Layout'
 
-const IndexPage: NextPage = () => {
+import Cart from '../components/Cart'
+import CartSummary from '../components/CartSummary'
+import Products from '../components/Products'
+import formatStripeData from '../utils/get-stripe-price'
+
+const IndexPage: NextPage = (props) => {
   return (
-    <Layout title="Home | Next.js + TypeScript Example">
-      <a href="/api/login">Login</a>
-      <a href="/api/logout">Logout</a>
-      <ul className="card-list">
-        <li>
-          <Link href="/donate-with-checkout">
-            <a className="card checkout-style-background">
-              <h2 className="bottom">Donate with Checkout</h2>
-              <img src="/checkout-one-time-payments.svg" alt="Donate with Checkout" />
-            </a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/donate-with-elements">
-            <a className="card elements-style-background">
-              <h2 className="bottom">Donate with Elements</h2>
-              <img src="/elements-card-payment.svg" alt="Donate with Elements"/>
-            </a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/use-shopping-cart">
-            <a className="card cart-style-background">
-              <h2 className="bottom">Use Shopping Cart</h2>
-              <img src="/use-shopping-cart.png" alt="Use Shopping Cart"/>
-            </a>
-          </Link>
-        </li>
-      </ul>
+    <Layout title="Use Shopping Cart | Next.js + TypeScript Example">
+      <div className="page-container">
+        <h1>Shopping Cart</h1>
+        <Cart>
+          <CartSummary />
+          <Products priceData={props.priceData} />
+        </Cart>
+      </div>
     </Layout>
   )
 }
 
 export default IndexPage
+
+export const getStaticProps: GetStaticProps = async () => {
+  const priceData = await formatStripeData()
+
+  return {
+    props: {
+      priceData
+    },
+    revalidate: 10
+  }
+}
