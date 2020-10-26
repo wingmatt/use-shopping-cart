@@ -1,20 +1,18 @@
 import React, { ReactNode } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
-import { UserProvider } from '../lib/user';
+import { UserProvider } from '../lib/user'
 
 type Props = {
-  user: string
-  loading: boolean
   children: ReactNode
   title?: string
 }
 
 const Layout = ({
-  user, 
-  loading=false,
+  user,
+  loading = false,
   children,
-  title = 'TypeScript Next.js Stripe Example',
+  title = 'TypeScript Next.js Stripe Example'
 }: Props) => (
   <UserProvider value={{ user, loading }}>
     <Head>
