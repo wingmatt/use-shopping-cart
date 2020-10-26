@@ -8,7 +8,7 @@ import formatStripeData from '../utils/get-stripe-price'
 
 const IndexPage: NextPage = (props) => {
   return (
-    <Layout title="Use Shopping Cart | Next.js + TypeScript Example">
+    <Layout title="use-shopping-cart | Next.js + TypeScript Example">
       <div className="page-container">
         <h1>Shopping Cart</h1>
         <Cart>
